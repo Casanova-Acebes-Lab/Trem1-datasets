@@ -70,15 +70,15 @@ matrix_geicam <- matrix_GEICAM_splt2
 
 #Saving results for matrix
 
-write.table(matrix_aurora,file = "results/matrix_raw_aurora.tsv",
+write.table(matrix_aurora,file = "results/AURORA/matrix_raw_aurora.tsv",
             sep = "\t",
             col.names = NA)
 
-write.table(matrix_rap,file = "results/matrix_raw_rap.tsv",
+write.table(matrix_rap,file = "results/RAP/matrix_raw_rap.tsv",
             sep = "\t",
             col.names = NA)
 
-write.table(matrix_geicam,file = "results/matrix_UQN_geicam.tsv",
+write.table(matrix_geicam,file = "results/GEICAM/matrix_UQN_geicam.tsv",
             sep = "\t",
             col.names = NA)
 
@@ -138,7 +138,7 @@ metadata_aurora <- subset(metadata_aurora, select = -c(treatment, time))
 
 metadata_aurora <- metadata_aurora[,-7:-8]
 
-write.table(metadata_aurora,file = "results/metadata_aurora.tsv",
+write.table(metadata_aurora,file = "results/AURORA/metadata_aurora.tsv",
             sep = "\t",
             col.names = NA)
 
@@ -205,7 +205,7 @@ metadata_RAP$dataset <- 'RAP'
 metadata_RAP <- metadata_RAP[,-6:-7]
 
 
-write.table(metadata_RAP,file = "results/metadata_rap.tsv",
+write.table(metadata_RAP,file = "results/RAP/metadata_rap.tsv",
             sep = "\t",
             col.names = NA)
 
@@ -240,7 +240,7 @@ colnames(metadata_geicam) <- c('sample',
                                'dataset')
 
 
-write.table(metadata_geicam,file = "results/metadata_geicam.tsv",
+write.table(metadata_geicam,file = "results/GEICAM/metadata_geicam.tsv",
             sep = "\t",
             col.names = NA)
 
