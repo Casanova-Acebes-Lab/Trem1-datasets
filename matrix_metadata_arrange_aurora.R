@@ -231,6 +231,11 @@ metadata_geicam$metadata_geicam.body_site <- gsub('pericardial effusion', 'Peric
                                                   metadata_geicam$metadata_geicam.body_site)
 metadata_geicam$metadata_geicam.body_site <- gsub('Pleural', 'Pleura', 
                                                   metadata_geicam$metadata_geicam.body_site)
+metadata_geicam$metadata_geicam.histological_type <- gsub('Breast cancer Metastasis', 'Metastatic tumor', 
+                                                  metadata_geicam$metadata_geicam.histological_type)
+metadata_geicam$metadata_geicam.histological_type <- gsub('Breast primary tumor', 'Primary tumor', 
+                                                  metadata_geicam$metadata_geicam.histological_type)
+
 
 colnames(metadata_geicam) <- c('sample', 
                                'tumor', 
@@ -245,4 +250,13 @@ write.table(metadata_geicam,file = "results/GEICAM/metadata_geicam.tsv",
             col.names = NA)
 
 
+# Merging cohorts
 
+metadata_AU_RA_GE <- rbind(metadata_aurora,
+                          metadata_RAP,
+                          metadata_geicam)
+
+
+write.table(metadata_AU_RA_GE,file = "results/metadata_AU_RA_GE.tsv",
+            sep = "\t",
+            col.names = NA)
