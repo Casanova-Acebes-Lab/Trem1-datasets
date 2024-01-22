@@ -1,6 +1,8 @@
 # This script can be used to combine the AURORA, RAP and GEICAM Matrix
 # and metadata
 
+library(DESseq)
+
 # Reading th config file
 
 config <- read.table("config/config.tsv",
@@ -63,7 +65,42 @@ check.names = F)
 
 # Merging AURORA & RAP datasets
 
-matrix.AURORA.RAP <- merge(matrix.AURORA, matrix.RAP, by=row.names)
+matrix.AURORA$rownames <- row.names(matrix.AURORA)
+matrix.RAP$rownames <- row.names(matrix.RAP)
+
+matrix.AURA <- merge(matrix.AURORA, matrix.RAP, 
+                    by='rownames')
+
+metadata.AURA <- rbind(metadata.AURORA, metadata.RAP)
+
+
+# Multi dimensional scalling 
+
+# Filtering low counts
+
+counts.CPM <- cpm(matrix.AURA)
+thresh <- counts.CPM > 1
+keep <- rowSums(thresh) >= 20
+counts.keep <- matrix.AURA[keep,]
+
+# Design matrix
+
+design  <-  model.matrix(~0+cross2$dataset)
+
+# Objeto de DESseq
+
+dds <- DESeqDataSetFromMatrix(counts.keep,
+colData = cross2,
+design = design)
+
+dim(dds)
+
+
+
+write.table(matrix.AURA,file = "results/Combinated/matrix.AURORA.RAP.tsv",
+            sep = "\t",
+            col.names = NA)
+
 
 
 
